@@ -10,7 +10,7 @@ pipeline{
                 }
                 sh 'pwd'
                 sh 'sudo terraform -chdir=terraform/ init -migrate-state'
-                sh 'sudo terraform apply -var-file=/home/jenkins/dev.tfvars --auto-approve'
+                sh 'sudo terraform apply -var-file="/home/jenkins/dev.tfvars" --auto-approve'
             }
             post{
                 success{
