@@ -4,6 +4,10 @@ pipeline{
         stage("Terraform Infra Initialized"){
             steps{
                 git 'https://github.com/Stoon2/infra-config-deploy-devops'
+                withCredentials([usernamePassword(credentialsId: 'AWSKeys', passwordVariable: 'pass', usernameVariable: 'user')]) {
+                    sh "export AWS_ACCESS_KEY_ID=${user}"
+                    sh "export AWS_ACCESS_KEY_ID=${pass}"
+                }
                 sh 'sudo terraform init -chdir=terraform/ -migrate-state'
                 sh 'sudo terraform apply -var-file=~/dev.tfvars --auto-approve'
             }
