@@ -11,10 +11,10 @@ pipeline{
             post{
                 success{
                     echo "Saving Infra Config - SSH Config"
-                    sh 'source util/ssh-config.sh $(terraform -chdir=terraform/ output --raw bastion_instance_ip) $(terraform -chdir=terraform/ output --raw private_instance_ip)'
+                    sh '. ./util/ssh-config.sh $(terraform -chdir=terraform/ output --raw bastion_instance_ip) $(terraform -chdir=terraform/ output --raw private_instance_ip)'
 
                     echo 'Saving Infra Config - Ansible Inventory'
-                    sh 'source util/inventory-ansible.sh $(terraform -chdir=terraform/ output --raw private_instance_ip)'
+                    sh '. ./util/inventory-ansible.sh $(terraform -chdir=terraform/ output --raw private_instance_ip)'
                 }
                 failure{
                     echo "========A execution failed========"
