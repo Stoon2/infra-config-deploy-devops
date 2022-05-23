@@ -13,7 +13,19 @@ RUN echo 'jenkins ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 RUN apt install default-jdk -y
 
 # install git to allow jenkins to pull repos
-RUN sudo apt install git -y
+RUN apt install git -y
+
+# install aws-cli pre-requisites
+RUN apt-get install curl -y
+RUN apt-get install unzip
+
+# install aws-cli
+RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" \
+    unzip awscliv2.zip \
+    ./aws/install
+
+# install ansible
+RUN apt-get install ansible -y
 
 # copy rsa key to home dir, configure and register ssh key
 COPY jenkins-slave.pub .
