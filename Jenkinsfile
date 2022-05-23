@@ -16,7 +16,7 @@ pipeline{
                     sh 'source util/ssh-config.sh ${bastion_hostname:1:-1} ${private_hostname:1:-1}'
 
                     echo 'Saving Infra Config - Ansible Inventory'
-                    sh 'source util/inventory-ansible.sh $(terraform output private_instance_ip | tr -d \\\")'
+                    sh 'source util/inventory-ansible.sh ${private_hostname:1:-1})'
                 }
                 failure{
                     echo "========A execution failed========"
