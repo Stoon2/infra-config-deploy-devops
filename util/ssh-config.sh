@@ -1,4 +1,5 @@
 # sudo chmod 400 /home/jenkins/myKey.pem
+echo $1 $2
 cat << EOF > ~/.ssh/config
 host bastion
    HostName $1
