@@ -9,7 +9,7 @@ pipeline{
                     sh "export AWS_ACCESS_KEY_ID=${pass}"
                 }
                 sh 'pwd'
-                sh 'sudo terraform init -chdir=terraform/ -migrate-state'
+                sh 'sudo terraform -chdir=terraform/ init -migrate-state'
                 sh 'sudo terraform apply -var-file=/home/jenkins/dev.tfvars --auto-approve'
             }
             post{
