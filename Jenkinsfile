@@ -11,7 +11,7 @@ pipeline{
             post{
                 success{
                     echo "Saving Infra Config - SSH Config"
-                    sh 'chmod +x util/ssh-config'
+                    sh 'chmod +x util/ssh-config.sh'
                     sh '. ./util/ssh-config.sh $(terraform -chdir=terraform/ output --raw bastion_instance_ip) $(terraform -chdir=terraform/ output --raw private_instance_ip)'
 
                     echo 'Saving Infra Config - Ansible Inventory'
