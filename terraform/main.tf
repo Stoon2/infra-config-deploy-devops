@@ -1,7 +1,7 @@
 provider "aws" {
   # Configuration options
   assume_role {
-    role_arn     = "arn:aws:iam::966773544640:role/ec2-tf-access"
+    role_arn  = "arn:aws:iam::966773544640:role/ec2-tf-access"
   }
   region  = "eu-central-1"
 }

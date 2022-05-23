@@ -6,7 +6,7 @@ pipeline{
                 git 'https://github.com/Stoon2/infra-config-deploy-devops'
                 sh 'pwd'
                 sh 'sudo terraform -chdir=terraform/ init -migrate-state'
-                sh 'sudo terraform -chdir=terraform/ apply -var-file=/home/jenkins/dev.tfvars--auto-approve'
+                sh 'sudo terraform -chdir=terraform/ apply -var-file=/home/jenkins/dev.tfvars --auto-approve'
             }
             post{
                 success{
