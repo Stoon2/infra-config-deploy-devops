@@ -1,8 +1,5 @@
 pipeline{
     agent any
-    agent{
-        label "node"
-    }
     stages{
         stage("Terraform Infra Initialized"){
             steps{
