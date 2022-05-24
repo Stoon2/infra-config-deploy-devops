@@ -1,4 +1,5 @@
 IP=$1
 HOST=$2
-
-sed -i "/$HOST/ s/.*/$IP\t$HOST/g" /etc/hosts
+cp /etc/hosts ~/hosts.new
+sed -i "/$HOST/ s/.*/$IP\t$HOST/g" ~/hosts.new
+cp -f ~/hosts.new /etc/hosts
