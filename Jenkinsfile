@@ -27,7 +27,9 @@ pipeline {
         }
         stage('cd') {
             steps {
-                sh 'docker run -d -p 3000:3000 stoon2/app-server'
+                withCredentials([usernamePassword(credentialsId: 'rds-credentials', passwordVariable: 'pass', usernameVariable: 'user')]) {
+                    sh 'docker run -d -p 3000:3000 stoon2/app-server -e RDS_HOSTNAME $RDS_HOSTNAME -e RDS_PORT $RDS_PORT -e REDIS_HOSTNAME $REDIS_HOSTNAME -e REDIS_PORT $REDIS_PORT -e RDS_USERNAME ${user} -e RDS_PASSWORD ${pass}'
+                }
             }
         }
     }
