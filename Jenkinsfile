@@ -1,34 +1,53 @@
-pipeline {
-    agent { 
-        label 'app'
-    }
+pipeline{
+    agent any
+    stages{
+        stage("Terraform Infra Initialized"){
+            steps{
+                git 'https://github.com/Stoon2/infra-config-deploy-devops'
+                sh 'pwd'
+                sh 'sudo terraform -chdir=terraform/ init -migrate-state'
+                sh 'sudo terraform -chdir=terraform/ apply -var-file=/home/jenkins/dev.tfvars --auto-approve'
+            }
+            post{
+                success{
+                    echo "Saving Infra Config - SSH Config"
+                    sh 'sudo chmod +x util/ssh-config.sh'
+                    sh 'sudo ./util/ssh-config.sh $(terraform -chdir=terraform/ output --raw bastion_instance_ip) $(terraform -chdir=terraform/ output --raw private_instance_ip)'
 
-    stages {
-        stage('ci') {
-            steps {
-                // Pull from repo
-                git branch: 'app_deployment'
-                    url: 'https://github.com/mahmoud254/jenkins_nodejs_example.git'
-                
-                // Docker build
-                sh 'docker build . -f Docker/jenkins_app_dockerfile -t stoon2/app-server'
-                
-                // Docker push
-                withCredentials([usernamePassword(credentialsId: 'admin-dockerhub', passwordVariable: 'pass', usernameVariable: 'user')]) {
-                    sh 'docker login --username ${user} --password ${pass}'
-                    sh 'docker push stoon2/app-server'
+                    echo 'Saving Infra Config - Ansible Inventory'
+                    sh 'sudo chmod +x util/inventory-ansible.sh'
+                    sh 'sudo ./util/inventory-ansible.sh $(terraform -chdir=terraform/ output --raw private_instance_ip)'
                 }
-
-                withCredentials([usernamePassword(credentialsId: 'rds-credentials', passwordVariable: 'pass', usernameVariable: 'user')]) {
-                    sh 'RDS_USERNAME=${user}'
-                    sh 'RDS_PASSWORD=${pass}'
+                failure{
+                    echo "========A execution failed========"
                 }
             }
         }
-        stage('cd') {
-            steps {
-                sh 'docker run -d -p 3000:3000 stoon2/app-server'
+        stage("A"){
+            steps{
+                echo "Configuring Infra"
+                sh 'ansible-playbook -i ~/inventory.ini ansible/playbook.yaml'
             }
+            post{
+                success{
+                    echo "====++++A executed successfully++++===="
+                }
+                failure{
+                    echo "====++++A execution failed++++===="
+                }
+        
+            }
+        }
+    }
+    post{
+        always{
+            echo "========Pipeline Finished========"
+        }
+        success{
+            echo "========pipeline executed successfully ========"
+        }
+        failure{
+            echo "========pipeline execution failed========"
         }
     }
 }
