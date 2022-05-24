@@ -20,8 +20,8 @@ pipeline{
 
                     echo 'Configuring /etc/hosts'
                     sh 'sudo chmod +x util/update-hosts.sh'
-                    sh 'sudo .util/update-hosts.sh $(terraform -chdir=terraform/ output --raw bastion_instance_ip) bastion'
-                    sh 'sudo .util/update-hosts.sh $(terraform -chdir=terraform/ output --raw private_instance_ip) private_instance'
+                    sh 'sudo ./util/update-hosts.sh $(terraform -chdir=terraform/ output --raw bastion_instance_ip) bastion'
+                    sh 'sudo ./util/update-hosts.sh $(terraform -chdir=terraform/ output --raw private_instance_ip) private_instance'
                 }
                 failure{
                     echo "========A execution failed========"
