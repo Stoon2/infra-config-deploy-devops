@@ -1,4 +1,4 @@
-sudo cat << EOF > home/jenkins/.ssh/config
+sudo cat << EOF > /home/jenkins/.ssh/config
 host bastion
    HostName $1
    User ubuntu
