@@ -7,8 +7,7 @@ pipeline {
         stage('ci') {
             steps {
                 // Pull from repo
-                git branch: 'app_deployment'
-                    url: 'https://github.com/mahmoud254/jenkins_nodejs_example.git'
+                git branch: 'app_deployment' url: 'https://github.com/mahmoud254/jenkins_nodejs_example.git'
                 
                 // Docker build
                 sh 'docker build . -f Docker/jenkins_app_dockerfile -t stoon2/app-server'
