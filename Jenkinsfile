@@ -26,7 +26,7 @@ pipeline{
         stage("A"){
             steps{
                 echo "Configuring Infra"
-                sh 'ansible-playbook -i ~/inventory.ini ansible/playbook.yaml'
+                sh 'ansible-playbook -i ansible/inventory.ini ansible/playbook.yaml'
             }
             post{
                 success{
