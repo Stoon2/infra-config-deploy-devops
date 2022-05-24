@@ -31,7 +31,7 @@ pipeline{
         stage("A"){
             steps{
                 echo "Configuring Infra"
-                sh 'ansible-playbook -i ansible/inventory.ini ansible/playbook.yaml'
+                sh 'ansible-playbook -i ansible/inventory.ini -e \'host_key_checking=False\' ansible/playbook.yaml'
             }
             post{
                 success{
