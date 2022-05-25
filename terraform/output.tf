@@ -21,3 +21,7 @@ output "redis_hostname" {
 output "redis_port" {
   value = aws_elasticache_cluster.main_cache.port
 }
+
+output "nlb_hostname" {
+  value = aws_lb.public_nlb.dns_name
+}
