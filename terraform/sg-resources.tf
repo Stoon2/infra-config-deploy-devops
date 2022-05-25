@@ -23,6 +23,25 @@ resource "aws_security_group" "allow_ssh_all" {
   }
 }
 
+resource "aws_security_group" "allow_redis_port" {
+  name        = "allow-redis-port"
+  description = "Allows access to redis"
+  vpc_id      = module.network.vpc_main_id
+
+  ingress {
+    description     = "Redis local"
+    from_port       = aws_elasticache_cluster.main_cache.port
+    protocol        = "tcp"
+    security_groups = [aws_security_group.allow_ssh_p3000_local.id]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+}
 
 resource "aws_security_group" "allow_ssh_p3000_local" {
   name        = "allow_ssh_p3000_local"
