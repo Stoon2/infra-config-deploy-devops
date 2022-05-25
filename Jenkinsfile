@@ -22,7 +22,8 @@ pipeline {
         }
         stage('cd') {
             steps {
-                sh 'docker run -d -p 3000:3000 --env-file /home/ubuntu/env-file stoon2/app-server'
+                sh 'docker rm app-server'
+                sh 'docker run -d -p 3000:3000 --env-file /home/ubuntu/env-file stoon2/app-server --name app-server'
             }
         }
     }
