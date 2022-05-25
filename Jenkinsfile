@@ -23,7 +23,7 @@ pipeline {
                     sh 'RDS_USERNAME=${user}'
                     sh 'RDS_PASSWORD=${pass}'
                 }
-                sh 'pwd'
+                sh 'sudo chmod +x util/set-env.sh'
                 sh './util/set-env.sh'
             }
         }
