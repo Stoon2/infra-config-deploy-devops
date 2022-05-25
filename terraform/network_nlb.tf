@@ -18,7 +18,13 @@ resource "aws_lb_target_group_attachment" "aws_nlb_tg_attach" {
   port             = 3000
 }
 
-data "aws_lb_listener" "aws_nlb_listener" {
+resource "aws_lb_listener" "front_end" {
   load_balancer_arn = aws_lb.public_nlb.arn
-  port              = 80
+  port              = "80"
+  protocol          = "TCP"
+
+  default_action {
+    type             = "forward"
+    target_group_arn = aws_lb_target_group.aws_nlb_tg.arn
+  }
 }
