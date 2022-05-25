@@ -45,22 +45,14 @@ resource "aws_security_group" "allow_redis_port" {
 }
 
 resource "aws_security_group" "allow_ssh_p3000_local" {
-  name        = "allow_ssh_p3000_local"
-  description = "Allow SSH and Port 3000 traffic locally"
+  name        = "allow_all_tcp"
+  description = "Allow all tcp"
   vpc_id      = module.network.vpc_main_id
 
   ingress {
-    description = "SSH local"
-    from_port   = 22
-    to_port     = 22
-    protocol    = "tcp"
-    cidr_blocks = [module.network.vpc_main_cidr]
-  }
-
-  ingress {
-    description = "Port 3000 local"
-    from_port   = 3000
-    to_port     = 3000
+    description = "Port 0 - 65535 local"
+    from_port   = 0
+    to_port     = 65535
     protocol    = "tcp"
     cidr_blocks = [module.network.vpc_main_cidr]
   }
