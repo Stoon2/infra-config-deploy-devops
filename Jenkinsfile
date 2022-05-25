@@ -18,18 +18,11 @@ pipeline {
                     sh 'docker login --username stoon2 --password ${pass}'
                     sh 'docker push stoon2/app-server'
                 }
-
-                withCredentials([usernamePassword(credentialsId: 'rds-credentials', passwordVariable: 'pass', usernameVariable: 'user')]) {
-                    sh 'RDS_USERNAME=${user}'
-                    sh 'RDS_PASSWORD=${pass}'
-                }
             }
         }
         stage('cd') {
             steps {
-                withCredentials([usernamePassword(credentialsId: 'rds-credentials', passwordVariable: 'pass', usernameVariable: 'user')]) {
-                    sh 'docker run -d -p 3000:3000 --env-file /home/ubuntu/env-file -it stoon2/app-server'
-                }
+                sh 'docker run -d -p 3000:3000 --env-file /home/ubuntu/env-file stoon2/app-server'
             }
         }
     }
