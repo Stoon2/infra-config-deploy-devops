@@ -9,6 +9,9 @@ resource "aws_elasticache_cluster" "main_cache" {
   preferred_availability_zones = [var.az-1]
   subnet_group_name            = aws_elasticache_subnet_group.ec_sn_group.name
   security_group_ids           = [aws_security_group.allow_redis_port.id]
+  depends_on = [
+    aws_security_group.allow_redis_port
+  ]
 }
 
 resource "aws_elasticache_subnet_group" "ec_sn_group" {
