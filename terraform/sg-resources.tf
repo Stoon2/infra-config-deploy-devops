@@ -30,7 +30,7 @@ resource "aws_security_group" "allow_redis_port" {
 
   ingress {
     description     = "Redis local"
-    from_port       = aws_elasticache_cluster.main_cache.port
+    from_port       = 6379
     protocol        = "tcp"
     security_groups = [aws_security_group.allow_ssh_p3000_local.id]
   }
