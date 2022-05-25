@@ -22,10 +22,10 @@ output "redis_port" {
   value = aws_elasticache_cluster.main_cache.port
 }
 
-output "rds_username" {
-  value = aws_db_instance.main_rds.username
-}
+# output "rds_username" {
+#   value = aws_db_instance.main_rds.username
+# }
 
-output "rds_password" {
-  value = aws_db_instance.main_rds.password
-}
+# output "rds_password" {
+#   value = aws_db_instance.main_rds.password
+# }
