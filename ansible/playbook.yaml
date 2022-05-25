@@ -1,6 +1,6 @@
 - name: configure app node
   hosts: app-deployment
-  remote_user: jenkins
+  remote_user: ubuntu
   become: true
   tasks:
     - name: update packages
@@ -24,5 +24,5 @@
 
     - name: copy agent to app-server private machine
       copy:
-        src: util/agent.jar
+        src: ../util/agent.jar
         dest: /home/ubuntu
