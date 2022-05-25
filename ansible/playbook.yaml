@@ -3,23 +3,26 @@
   remote_user: ubuntu
   become: true
   tasks:
-  - name: update packages
-    apt: update_cache=yes
-  
-  - name: install open-jdk
-    apt: 
-      name: default-jdk-headless
-      state: present
-  
-  - name: install docker
-    apt:
-      name: docker.io
-      state: present
-  
-  - name: add user to docker group
-    user: 
-      name: ubuntu
-      groups: docker
-      append: yes
+    - name: update packages
+      apt: update_cache=yes
 
-  
+    - name: install open-jdk
+      apt:
+        name: default-jdk-headless
+        state: present
+
+    - name: install docker
+      apt:
+        name: docker.io
+        state: present
+
+    - name: add user to docker group
+      user:
+        name: ubuntu
+        groups: docker
+        append: yes
+
+    - name: copy agent to app-server private machine
+      copy:
+        src: agent.jar
+        dest: /home/ubuntu

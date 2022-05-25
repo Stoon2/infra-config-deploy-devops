@@ -17,16 +17,21 @@ pipeline{
                     echo 'Saving Infra Config - Ansible Inventory'
                     sh 'sudo chmod +x util/inventory-ansible.sh'
                     sh 'sudo ./util/inventory-ansible.sh $(terraform -chdir=terraform/ output --raw private_instance_ip)'
+
+                    echo 'Configuring /etc/hosts'
+                    sh 'sudo chmod +x util/update-hosts.sh'
+                    sh 'sudo ./util/update-hosts.sh $(terraform -chdir=terraform/ output --raw bastion_instance_ip) bastion'
+                    sh 'sudo ./util/update-hosts.sh $(terraform -chdir=terraform/ output --raw private_instance_ip) private_instance'
                 }
                 failure{
                     echo "========A execution failed========"
                 }
             }
         }
-        stage("A"){
+        stage("Ansible"){
             steps{
                 echo "Configuring Infra"
-                sh 'ansible-playbook -i ~/inventory.ini ansible/playbook.yaml'
+                sh 'ansible-playbook -i ansible/inventory.ini ansible/playbook.yaml'
             }
             post{
                 success{
