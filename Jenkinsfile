@@ -23,9 +23,6 @@ pipeline {
                     sh 'RDS_USERNAME=${user}'
                     sh 'RDS_PASSWORD=${pass}'
                 }
-                
-                sh 'chmod +x util/set-env.sh'
-                sh '.util/set-env.sh'
             }
         }
         stage('cd') {
