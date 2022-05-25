@@ -23,12 +23,15 @@ pipeline {
                     sh 'RDS_USERNAME=${user}'
                     sh 'RDS_PASSWORD=${pass}'
                 }
+                
+                sh 'chmod +x util/set-env.sh'
+                sh '.util/set-env.sh'
             }
         }
         stage('cd') {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'rds-credentials', passwordVariable: 'pass', usernameVariable: 'user')]) {
-                    sh 'docker run -d -p 3000:3000 -e RDS_HOSTNAME=$RDS_HOSTNAME -e RDS_PORT=$RDS_PORT -e REDIS_HOSTNAME=$REDIS_HOSTNAME -e REDIS_PORT=$REDIS_PORT -e RDS_USERNAME=${user} -e RDS_PASSWORD=$RDS_PASSWORD -it stoon2/app-server'
+                    sh 'docker run -d -p 3000:3000 -e RDS_HOSTNAME=$RDS_HOSTNAME -e RDS_PORT=$RDS_PORT -e REDIS_HOSTNAME=$REDIS_HOSTNAME -e REDIS_PORT=$REDIS_PORT -e RDS_USERNAME=${user} -e RDS_PASSWORD=$RDS_PASSWORD stoon2/app-server'
                 }
             }
         }
