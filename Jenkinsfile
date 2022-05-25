@@ -23,8 +23,8 @@ pipeline {
                     sh 'RDS_USERNAME=${user}'
                     sh 'RDS_PASSWORD=${pass}'
                 }
-
-                sh 'sudo ./util/set-env.sh'
+                sh 'echo Iam_here'
+                sh './util/set-env.sh'
             }
         }
         stage('cd') {
