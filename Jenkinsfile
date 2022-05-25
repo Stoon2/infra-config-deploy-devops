@@ -15,7 +15,7 @@ pipeline {
                 
                 // Docker push
                 withCredentials([usernamePassword(credentialsId: 'admin-dockerhub', passwordVariable: 'pass', usernameVariable: 'user')]) {
-                    sh 'docker login --username ${user} --password ${pass}'
+                    sh 'docker login --username stoon2 --password ${pass}'
                     sh 'docker push stoon2/app-server'
                 }
 
