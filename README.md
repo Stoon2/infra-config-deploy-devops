@@ -40,3 +40,17 @@ Using Bash, we can manipulate the enviornment of a Docker container where our In
 Bash         |  Ansible
 :-------------------------:|:-------------------------:
 ![](https://tecadmin.net/tutorial/wp-content/uploads/2017/09/bash-logo.jpg)  |  ![](https://sachsenhofer.io/wp-content/uploads/2018/06/ansible-white.png)
+
+---
+
+## Installation:
+
+1. Create an EC2 instance, this will be your master node.
+2. Give this machine an Admin Role
+3. [Install Docker](https://docs.docker.com/engine/install/ubuntu/)
+4. Run Jenkins container
+```
+docker run -p 8080:8080 jenkins/jenkins:latest
+```
+5. Configure Jenkins
+6. Edit Jenkins settings to allow better granularity for permissions.
