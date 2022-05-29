@@ -29,13 +29,14 @@ Terraform was used here to create the IaC (Infrastructure as Code) part of the p
 # Docker
 Using Docker containers, we are easily able to deploy our Jenkins Master with some modifications. Then pushing this custom image to Dockerhub right after building it with Jenkins.
 
-![Docker Logo](https://hdwallpaperim.com/wp-content/uploads/2017/08/25/461265-docker-containers.jpg)
+![Docker Logo](https://hsto.org/getpro/habr/post_images/792/138/92e/79213892e85d57177c0ba9864dd75cc6.png)
 
 ---
 
 # Ansible/Bash
 
+Using Bash, we can manipulate the enviornment of a Docker container where our Infrastructure is being built. Then later update the needed config files for Ansible, so it can keep track of the infrastructure built with Terraform. After the creation of our Infra, we can now configure it with Ansible, using some prewritten scripts.
 
 Bash         |  Ansible
 :-------------------------:|:-------------------------:
-![](https://skorpil.cz/sites/default/files/2022-01/1200px-Bash_Logo_Colored.svg_.png)  |  ![](https://www.freecodecamp.org/news/content/images/2021/09/ansble.png)
+![](https://tecadmin.net/tutorial/wp-content/uploads/2017/09/bash-logo.jpg)  |  ![](https://sachsenhofer.io/wp-content/uploads/2018/06/ansible-white.png)
